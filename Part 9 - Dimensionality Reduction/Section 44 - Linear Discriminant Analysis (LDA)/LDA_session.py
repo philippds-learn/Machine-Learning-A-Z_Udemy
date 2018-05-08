@@ -1,4 +1,5 @@
-# PCA (PRINCIPAL COMPONENT ANALYSIS)
+# LDA (Linear Discriminant Analysis)
+# Supervised
 
 # Importing the libraries
 import numpy as np
@@ -20,15 +21,14 @@ sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
-# Applying PCA
-from sklearn.decomposition import PCA
+# Applying LDA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 # n_components = number of features
 # first step n_components = None
 # second step n_components = (for example) 2
-pca = PCA(n_components = 2)
-X_train = pca.fit_transform(X_train)
-X_test = pca.fit_transform(X_test)
-explained_variance = pca.explained_variance_ratio_
+lda = LDA(n_components = 2)
+X_train = lda.fit_transform(X_train, y_train)
+X_test = lda.transform(X_test)
 
 # Fitting Logistic Regression to the Training set
 from sklearn.linear_model import LogisticRegression
@@ -55,8 +55,8 @@ for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green', 'blue'))(i), label = j)
 plt.title('Logistic Regression (Training set)')
-plt.xlabel('PC1')
-plt.ylabel('PC2')
+plt.xlabel('LD1')
+plt.ylabel('LD2')
 plt.legend()
 plt.show()
 
@@ -73,7 +73,7 @@ for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green', 'blue'))(i), label = j)
 plt.title('Logistic Regression (Test set)')
-plt.xlabel('PC1')
-plt.ylabel('PC2')
+plt.xlabel('LD1')
+plt.ylabel('LD2')
 plt.legend()
 plt.show()
