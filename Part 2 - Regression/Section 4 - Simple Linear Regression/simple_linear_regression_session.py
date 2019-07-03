@@ -4,6 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.metrics import mean_squared_error, r2_score
 
 # Importing the dataset
 dataset = pd.read_csv('Salary_Data.csv')
@@ -25,8 +26,15 @@ from sklearn.linear_model import LinearRegression
 regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 
-# Predicting the Test set results
-y_pred = regressor.predict(X_test)
+
+# The coefficients
+print('Coefficients: \n', regressor.coef_)
+# The mean squared error
+print("Mean squared error: %.2f"
+      % mean_squared_error(y_test, y_pred))
+# Explained variance score: 1 is perfect prediction
+print('Variance score: %.2f' % r2_score(y_test, y_pred))
+
 
 # Visualising the Training set results
 plt.scatter(X_train, y_train, color = 'red')
@@ -36,6 +44,7 @@ plt.xlabel('Years of Experience')
 plt.ylabel('Salary')
 plt.show()
 
+
 # Visualising the Test set results
 plt.scatter(X_test, y_test, color = 'red')
 plt.plot(X_train, regressor.predict(X_train), color = 'blue')
@@ -43,3 +52,4 @@ plt.title('Salary vs Experience (Test set)')
 plt.xlabel('Years of Experience')
 plt.ylabel('Salary')
 plt.show()
+
